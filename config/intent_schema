@@ -1,0 +1,71 @@
+{
+  "intents": [
+    {
+      "intent": "movie_list"
+    },
+    {
+    "intent": "movie_synopsis",
+      "slots":[
+    {
+      "name": "movie",
+      "type": "movies"
+    }]
+        },
+    {
+      "intent": "movie_rating",
+      "slots":[{
+        "name": "movie",
+        "type": "movies"
+      }]
+    },
+    {
+      "intent": "no_more_info"
+    },
+    {
+      "intent": "movie_actors",
+      "slots": [
+        {
+          "name": "movie",
+          "type": "movies"
+        }
+      ]
+    },
+    {
+      "intent": "movie_runtime",
+      "slots": [
+        {
+          "name": "movie",
+          "type": "movies"
+        }
+      ]
+
+    },
+    {
+      "intent": "movie_directors",
+      "slots": [
+        {
+          "name": "movie",
+          "type": "movies"
+        }
+      ]
+    },
+    {
+      "intent": "movie_duration",
+      "slots": [
+        {
+          "name": "movie",
+          "type": "movies"
+        }
+      ]
+    },
+    {
+      "intent": "movie_genre",
+      "slots": [
+        {
+          "name": "movie",
+          "type": "movies"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+movie_synopsis synopsis
+movie_synopsis synopsis of {movie}
+movie_synopsis synopsis for {movie}
+
+movie_synopsis overview
+movie_synopsis overview of {movie}
+movie_synopsis overview for {movie}
+
+movie_synopsis summary
+movie_synopsis summary of {movie}
+movie_synopsis summary for {movie}
+
+
+movie_rating rating
+movie_rating rating of {movie}
+movie_rating rating for {movie}
+
+movie_rating review
+movie_rating review of {movie}
+movie_rating review for {movie}
+
+movie_actors actors
+movie_actors actors of {movie}
+movie_actors actors for {movie}
+
+movie_directors directors
+movie_directors directors of {movie}
+movie_directors directors for {movie}
+
+movie_duration duration
+movie_duration length
+movie_duration duration of {movie}
+movie_duration length for {movie}
+
+movie_genre genre
+movie_genre genre of {movie}
+movie_genre genre for {movie}
+
+no_more_info no
+no_more_info nada
+no_more_info nope
+
+AMAZON.StopIntent Never Mind
+AMAZON.StopIntent stop
+
+
+
+
+
