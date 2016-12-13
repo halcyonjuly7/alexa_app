@@ -3,7 +3,13 @@ import abc
 
 
 class SourceMapper(metaclass=abc.ABCMeta):
+
     def __init__(self, target_attribute):
+        """
+
+        :param target_attribute: the attribute to get from the json_source
+        :type target_attribute: str
+        """
         self.target_attribute = target_attribute
 
     @abc.abstractmethod
@@ -11,7 +17,7 @@ class SourceMapper(metaclass=abc.ABCMeta):
         pass
 
 
-class MovieSourceMapper(SourceMapper):
+class OmdbSourceMapper(SourceMapper):
     def get_mapped_attribute(self):
         logging.debug("**************************" + self.target_attribute)
         if self.target_attribute in ("duration", "runtime", "length", "run time"):

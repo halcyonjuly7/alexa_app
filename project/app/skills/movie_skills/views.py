@@ -1,10 +1,12 @@
 import logging
-from datetime import datetime
+
 from flask_ask import question, statement
+
 from project import ask
-from project.app.utils.formatters import MovieDataFormatter
-from project.app.utils.handlers import MovieHandler, SessionHandler, NoMovieError, MoviesApiCaller
-from project.app.utils.mappers import MovieSourceMapper
+from project.app.utils.formatters import OmdbDataFormatter
+from project.app.utils.handlers import OmdbSourceHandler, SessionHandler
+from project.app.utils.mappers import OmdbSourceMapper
+from project.app.utils.source_callers import NoMovieError, OmdbSourceCaller, MovieInfoSourceCaller
 
 
 @ask.launch
@@ -18,8 +20,17 @@ def get_movies():
     """
     :return:
     """
-    date_now = datetime.now().date()
-    pass
+    source_caller = MovieInfoSourceCaller(uri="mysql+pymysql://odroid:Jiujitsu123@192.168.1.211/movies")
+
+    movie_list = source_caller.get_data(model_name="movie_info", query_type="movie_list")
+    movie_names = [movie["movie"] for movie in movie_list]
+    answer = ";".join(["the movies are ", *movie_names])
+    SessionHandler.set_attribute("movie_list", movie_list)
+    logging.debug(movie_list)
+    return statement(answer)
+
+
+
 
 
 
@@ -33,9 +44,9 @@ def movie_choice():
 def lookup_movie(movie):
     SessionHandler.set_attribute("has_session", True)
     SessionHandler.set_attribute("movie_context", movie)
-    movie_handler = MoviesApiCaller(target=movie)
+    movie_handler = OmdbSourceCaller()
     try:
-        SessionHandler.set_attribute("movie_data", movie_handler.get_data(plot="short"))
+        SessionHandler.set_attribute("movie_data", movie_handler.get_data(t=movie, plot="short"))
         response = "I've found {movie} what would you like to know about {movie}?".format(movie=movie)
     except NoMovieError as error:
         logging.debug("---------------- Here in No Movie Error")
@@ -48,9 +59,9 @@ def lookup_movie(movie):
 @ask.intent("movie_info")
 def get_movie_info(target):
     movie_context = SessionHandler.get_attribute("movie_context")
-    movie_handler = MovieHandler(target=movie_context, data=SessionHandler.get_attribute("movie_data"))
-    movie_handler.set_response_formatter(MovieDataFormatter(target))
-    movie_handler.set_source_mapper(MovieSourceMapper(target))
+    movie_handler = OmdbSourceHandler(target=movie_context, data=SessionHandler.get_attribute("movie_data"))
+    movie_handler.set_response_formatter(OmdbDataFormatter(target))
+    movie_handler.set_source_mapper(OmdbSourceMapper(target))
     try:
         response = movie_handler.get_response(target)
     except KeyError as exception:
