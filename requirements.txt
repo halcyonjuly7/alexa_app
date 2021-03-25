@@ -69,7 +69,7 @@ python-apt==1.1.0b5
 python-dateutil==2.6.0
 python-debian==0.1.29
 pyxdg==0.25
-PyYAML==3.11
+PyYAML==5.4
 pyzmq==16.0.1
 qtconsole==4.2.1
 reportlab==3.3.0
